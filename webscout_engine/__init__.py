@@ -18,5 +18,5 @@ TOOL_NAME = "webscout_engine"
 __version__ = "2.0.0"
 
 DEVELOPER_TELEGRAM = "@VlP_12"
-DEVELOPER_GITHUB = "https://github.com/AlmunharifHamoudi/"
+DEVELOPER_GITHUB = "https://github.com//"
 DEVELOPER_LINE = f"{DEVELOPER_TELEGRAM}  ·  {DEVELOPER_GITHUB}"
