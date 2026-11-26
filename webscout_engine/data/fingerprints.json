@@ -1,0 +1,499 @@
+{
+  "version": "1.0",
+  "description": "Technology fingerprint rules. Each rule must cite the header, cookie or body pattern that produced the match.",
+  "fingerprints": [
+    {
+      "name": "nginx",
+      "category": "web-server",
+      "headers": {
+        "server": [
+          "nginx(?:/([\\d.]+))?"
+        ]
+      }
+    },
+    {
+      "name": "Apache HTTP Server",
+      "category": "web-server",
+      "headers": {
+        "server": [
+          "Apache(?:/([\\d.]+))?"
+        ]
+      }
+    },
+    {
+      "name": "Microsoft IIS",
+      "category": "web-server",
+      "headers": {
+        "server": [
+          "Microsoft-IIS/([\\d.]+)",
+          "\\bIIS\\b"
+        ]
+      }
+    },
+    {
+      "name": "LiteSpeed",
+      "category": "web-server",
+      "headers": {
+        "server": [
+          "LiteSpeed"
+        ]
+      }
+    },
+    {
+      "name": "Caddy",
+      "category": "web-server",
+      "headers": {
+        "server": [
+          "Caddy"
+        ]
+      }
+    },
+    {
+      "name": "Tomcat",
+      "category": "app-server",
+      "headers": {
+        "server": [
+          "Apache-Coyote",
+          "Tomcat(?:/([\\d.]+))?"
+        ]
+      }
+    },
+    {
+      "name": "Jetty",
+      "category": "app-server",
+      "headers": {
+        "server": [
+          "Jetty(?:\\(([\\d.]+)\\))?"
+        ]
+      }
+    },
+    {
+      "name": "Gunicorn",
+      "category": "app-server",
+      "headers": {
+        "server": [
+          "gunicorn/([\\d.]+)"
+        ]
+      }
+    },
+    {
+      "name": "uvicorn",
+      "category": "app-server",
+      "headers": {
+        "server": [
+          "uvicorn"
+        ]
+      }
+    },
+    {
+      "name": "Envoy",
+      "category": "proxy",
+      "headers": {
+        "server": [
+          "envoy"
+        ]
+      }
+    },
+    {
+      "name": "HAProxy",
+      "category": "proxy",
+      "headers": {
+        "server": [
+          "HAProxy"
+        ]
+      }
+    },
+    {
+      "name": "Varnish",
+      "category": "cache",
+      "headers": {
+        "x-varnish": [
+          "."
+        ],
+        "via": [
+          "varnish"
+        ]
+      }
+    },
+    {
+      "name": "Cloudflare",
+      "category": "cdn",
+      "headers": {
+        "server": [
+          "cloudflare"
+        ],
+        "cf-ray": [
+          "."
+        ]
+      }
+    },
+    {
+      "name": "Akamai",
+      "category": "cdn",
+      "headers": {
+        "server": [
+          "AkamaiGHost"
+        ],
+        "x-akamai-transformed": [
+          "."
+        ]
+      }
+    },
+    {
+      "name": "Fastly",
+      "category": "cdn",
+      "headers": {
+        "x-fastly-request-id": [
+          "."
+        ],
+        "server": [
+          "Fastly"
+        ]
+      }
+    },
+    {
+      "name": "Amazon CloudFront",
+      "category": "cdn",
+      "headers": {
+        "x-amz-cf-id": [
+          "."
+        ]
+      }
+    },
+    {
+      "name": "Azure Front Door",
+      "category": "cdn",
+      "headers": {
+        "x-azure-ref": [
+          "."
+        ]
+      }
+    },
+    {
+      "name": "PHP",
+      "category": "language",
+      "headers": {
+        "x-powered-by": [
+          "PHP/([\\d.]+)"
+        ]
+      }
+    },
+    {
+      "name": "ASP.NET",
+      "category": "framework",
+      "headers": {
+        "x-powered-by": [
+          "ASP\\.NET"
+        ],
+        "x-aspnet-version": [
+          "([\\d.]+)"
+        ],
+        "x-aspnetmvc-version": [
+          "([\\d.]+)"
+        ]
+      }
+    },
+    {
+      "name": "Express",
+      "category": "framework",
+      "headers": {
+        "x-powered-by": [
+          "Express"
+        ]
+      }
+    },
+    {
+      "name": "Next.js",
+      "category": "framework",
+      "headers": {
+        "x-powered-by": [
+          "Next\\.js"
+        ],
+        "x-nextjs-cache": [
+          "."
+        ]
+      }
+    },
+    {
+      "name": "Nuxt",
+      "category": "framework",
+      "body": [
+        "__NUXT__"
+      ]
+    },
+    {
+      "name": "Django",
+      "category": "framework",
+      "cookies": [
+        "csrftoken",
+        "django_language"
+      ]
+    },
+    {
+      "name": "Laravel",
+      "category": "framework",
+      "cookies": [
+        "laravel_session",
+        "XSRF-TOKEN"
+      ]
+    },
+    {
+      "name": "Ruby on Rails",
+      "category": "framework",
+      "cookies": [
+        "_rails_session",
+        "_session_id"
+      ],
+      "headers": {
+        "x-powered-by": [
+          "Phusion Passenger"
+        ]
+      }
+    },
+    {
+      "name": "Spring Boot",
+      "category": "framework",
+      "headers": {
+        "x-application-context": [
+          "."
+        ]
+      }
+    },
+    {
+      "name": "Flask",
+      "category": "framework",
+      "headers": {
+        "server": [
+          "Werkzeug/([\\d.]+)"
+        ]
+      }
+    },
+    {
+      "name": "WordPress",
+      "category": "cms",
+      "headers": {
+        "x-powered-by": [
+          "WordPress(?:/([\\d.]+))?"
+        ]
+      },
+      "body": [
+        "wp-content",
+        "wp-includes"
+      ],
+      "cookies": [
+        "wordpress_"
+      ]
+    },
+    {
+      "name": "Drupal",
+      "category": "cms",
+      "headers": {
+        "x-generator": [
+          "Drupal ([\\d.]+)"
+        ],
+        "x-drupal-cache": [
+          "."
+        ]
+      }
+    },
+    {
+      "name": "Joomla",
+      "category": "cms",
+      "body": [
+        "/media/system/js/",
+        "joomla"
+      ]
+    },
+    {
+      "name": "Magento",
+      "category": "cms",
+      "body": [
+        "Magento"
+      ],
+      "cookies": [
+        "frontend"
+      ]
+    },
+    {
+      "name": "Ghost",
+      "category": "cms",
+      "body": [
+        "ghost-url",
+        "content=\"Ghost"
+      ]
+    },
+    {
+      "name": "jQuery",
+      "category": "library",
+      "body": [
+        "jquery(?:\\.min)?\\.js",
+        "jQuery v([\\d.]+)"
+      ]
+    },
+    {
+      "name": "Bootstrap",
+      "category": "library",
+      "body": [
+        "bootstrap(?:\\.min)?\\.css",
+        "Bootstrap v([\\d.]+)"
+      ]
+    },
+    {
+      "name": "React",
+      "category": "library",
+      "body": [
+        "react(?:-dom)?(?:\\.production)?(?:\\.min)?\\.js",
+        "data-reactroot"
+      ]
+    },
+    {
+      "name": "Vue.js",
+      "category": "library",
+      "body": [
+        "vue(?:\\.min)?\\.js",
+        "data-v-[0-9a-f]{8}"
+      ]
+    },
+    {
+      "name": "Angular",
+      "category": "library",
+      "body": [
+        "ng-version=\"([\\d.]+)\"",
+        "angular(?:\\.min)?\\.js"
+      ]
+    },
+    {
+      "name": "Google Analytics",
+      "category": "analytics",
+      "body": [
+        "google-analytics\\.com/analytics\\.js",
+        "gtag\\('config'"
+      ]
+    },
+    {
+      "name": "Google Tag Manager",
+      "category": "analytics",
+      "body": [
+        "googletagmanager\\.com/gtm\\.js"
+      ]
+    },
+    {
+      "name": "Sentry",
+      "category": "monitoring",
+      "body": [
+        "sentry\\.io",
+        "@sentry/browser"
+      ]
+    },
+    {
+      "name": "Grafana",
+      "category": "monitoring",
+      "body": [
+        "grafana"
+      ],
+      "cookies": [
+        "grafana_session"
+      ]
+    },
+    {
+      "name": "Kibana",
+      "category": "monitoring",
+      "body": [
+        "kbn-injected-metadata"
+      ]
+    },
+    {
+      "name": "Swagger UI",
+      "category": "documentation",
+      "body": [
+        "swagger-ui",
+        "SwaggerUIBundle"
+      ]
+    },
+    {
+      "name": "phpMyAdmin",
+      "category": "admin",
+      "body": [
+        "phpMyAdmin"
+      ],
+      "cookies": [
+        "phpMyAdmin"
+      ]
+    },
+    {
+      "name": "Jenkins",
+      "category": "ci",
+      "headers": {
+        "x-jenkins": [
+          "([\\d.]+)"
+        ]
+      }
+    },
+    {
+      "name": "GitLab",
+      "category": "devtools",
+      "body": [
+        "gon\\.gitlab_url"
+      ],
+      "cookies": [
+        "_gitlab_session"
+      ]
+    },
+    {
+      "name": "Docker Registry",
+      "category": "registry",
+      "headers": {
+        "docker-distribution-api-version": [
+          "."
+        ]
+      }
+    },
+    {
+      "name": "Elasticsearch",
+      "category": "database",
+      "body": [
+        "\"cluster_name\"",
+        "You Know, for Search"
+      ]
+    },
+    {
+      "name": "MinIO",
+      "category": "storage",
+      "headers": {
+        "server": [
+          "MinIO"
+        ]
+      }
+    },
+    {
+      "name": "Keycloak",
+      "category": "identity",
+      "body": [
+        "keycloak"
+      ],
+      "cookies": [
+        "KEYCLOAK_"
+      ]
+    },
+    {
+      "name": "Moodle",
+      "category": "lms",
+      "body": [
+        "moodle",
+        "M.cfg"
+      ]
+    },
+    {
+      "name": "Shopify",
+      "category": "platform",
+      "headers": {
+        "x-shopid": [
+          "."
+        ],
+        "x-shopify-stage": [
+          "."
+        ]
+      }
+    }
+  ]
+}

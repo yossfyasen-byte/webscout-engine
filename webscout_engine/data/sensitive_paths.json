@@ -1,0 +1,1597 @@
+{
+  "version": "1.0",
+  "description": "Bundled sensitive-path catalogue. Signatures are matched against the response body to confirm that a file really is what its name claims.",
+  "entries": [
+    {
+      "path": ".env",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "(?m)^[A-Z][A-Z0-9_]{2,}\\s*="
+      ],
+      "description": "Environment file typically holding database passwords, API keys and signing secrets."
+    },
+    {
+      "path": ".env.local",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "(?m)^[A-Z][A-Z0-9_]{2,}\\s*="
+      ],
+      "description": "Local environment overrides with live credentials."
+    },
+    {
+      "path": ".env.production",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "(?m)^[A-Z][A-Z0-9_]{2,}\\s*="
+      ],
+      "description": "Production environment file with live credentials."
+    },
+    {
+      "path": ".env.backup",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "(?m)^[A-Z][A-Z0-9_]{2,}\\s*="
+      ],
+      "description": "Backup copy of the environment file."
+    },
+    {
+      "path": ".env.old",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "(?m)^[A-Z][A-Z0-9_]{2,}\\s*="
+      ],
+      "description": "Stale environment file that may still contain valid secrets."
+    },
+    {
+      "path": ".env.example",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "(?m)^[A-Z][A-Z0-9_]{2,}="
+      ],
+      "description": "Template environment file; confirms which settings the application expects."
+    },
+    {
+      "path": ".git/config",
+      "group": "vcs",
+      "severity": "high",
+      "signatures": [
+        "\\[core\\]"
+      ],
+      "description": "Git configuration revealing remote repository URLs and local paths."
+    },
+    {
+      "path": ".git/HEAD",
+      "group": "vcs",
+      "severity": "medium",
+      "signatures": [
+        "^ref:\\s+refs/"
+      ],
+      "description": "Git HEAD pointer proving the repository is exposed."
+    },
+    {
+      "path": ".git/logs/HEAD",
+      "group": "vcs",
+      "severity": "medium",
+      "signatures": [
+        "[0-9a-f]{40}"
+      ],
+      "description": "Git reflog disclosing commit history and author identities."
+    },
+    {
+      "path": ".gitignore",
+      "group": "vcs",
+      "severity": "info",
+      "signatures": [
+        "(?m)^[^#\\s]"
+      ],
+      "description": "Ignore rules hinting at files that exist locally but should not be public."
+    },
+    {
+      "path": ".svn/entries",
+      "group": "vcs",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\d+\\s*$"
+      ],
+      "description": "Subversion metadata exposing repository structure."
+    },
+    {
+      "path": ".hg/requires",
+      "group": "vcs",
+      "severity": "low",
+      "signatures": [
+        "(?m)^[a-z]"
+      ],
+      "description": "Mercurial metadata."
+    },
+    {
+      "path": ".DS_Store",
+      "group": "vcs",
+      "severity": "low",
+      "signatures": [],
+      "description": "macOS directory metadata leaking local file names."
+    },
+    {
+      "path": ".htpasswd",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "^[^:\\r\\n]+:\\$"
+      ],
+      "description": "Apache password file with password hashes."
+    },
+    {
+      "path": ".htaccess",
+      "group": "config",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(RewriteEngine|Options|AuthType|Require)"
+      ],
+      "description": "Apache access rules revealing internal routing and restrictions."
+    },
+    {
+      "path": "web.config",
+      "group": "config",
+      "severity": "high",
+      "signatures": [
+        "<configuration"
+      ],
+      "description": "IIS configuration, frequently containing connection strings."
+    },
+    {
+      "path": "appsettings.json",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "\"ConnectionStrings\"|\"ApiKey\""
+      ],
+      "description": ".NET configuration with connection strings and API keys."
+    },
+    {
+      "path": "config.php",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "(?i)(DB_PASSWORD|DB_HOST|define\\()"
+      ],
+      "description": "PHP configuration with database credentials."
+    },
+    {
+      "path": "config.inc.php",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "(?i)(DB_PASSWORD|DB_HOST|define\\()"
+      ],
+      "description": "Included PHP configuration with database credentials."
+    },
+    {
+      "path": "config.json",
+      "group": "config",
+      "severity": "medium",
+      "signatures": [
+        "\"(password|secret|api_key|token)\"\\s*:"
+      ],
+      "description": "JSON configuration containing credentials."
+    },
+    {
+      "path": "config.yml",
+      "group": "config",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\s*(password|secret|token|api_key)\\s*:"
+      ],
+      "description": "YAML configuration containing credentials."
+    },
+    {
+      "path": "settings.py",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "SECRET_KEY|DATABASES\\s*="
+      ],
+      "description": "Django settings module with the secret key and database details."
+    },
+    {
+      "path": "application.properties",
+      "group": "config",
+      "severity": "high",
+      "signatures": [
+        "(?m)^(spring\\.datasource|server\\.port|spring\\.security)"
+      ],
+      "description": "Spring Boot configuration with datasource credentials."
+    },
+    {
+      "path": "wp-config.php",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "DB_PASSWORD"
+      ],
+      "description": "WordPress configuration with database credentials and salts."
+    },
+    {
+      "path": ".aws/credentials",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "aws_access_key_id"
+      ],
+      "description": "AWS access keys allowing programmatic cloud access."
+    },
+    {
+      "path": ".aws/config",
+      "group": "config",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\[profile|^region"
+      ],
+      "description": "AWS CLI configuration exposing account structure."
+    },
+    {
+      "path": "id_rsa",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "-----BEGIN (RSA |OPENSSH )?PRIVATE KEY-----"
+      ],
+      "description": "RSA private key."
+    },
+    {
+      "path": "id_ed25519",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "-----BEGIN OPENSSH PRIVATE KEY-----"
+      ],
+      "description": "Ed25519 private key."
+    },
+    {
+      "path": ".ssh/authorized_keys",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "^(ssh-rsa|ssh-ed25519|ecdsa-sha2)"
+      ],
+      "description": "Authorised SSH keys revealing which identities may log in."
+    },
+    {
+      "path": ".pgpass",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "^[^:]+:[^:]+:[^:]+:[^:]+:"
+      ],
+      "description": "PostgreSQL password file."
+    },
+    {
+      "path": ".my.cnf",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "\\[client\\]"
+      ],
+      "description": "MySQL client configuration, often containing a password."
+    },
+    {
+      "path": ".netrc",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "(?m)^machine\\s+"
+      ],
+      "description": "Credentials for automated FTP/HTTP logins."
+    },
+    {
+      "path": ".npmrc",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "_authToken|:_auth"
+      ],
+      "description": "npm registry token enabling package publication."
+    },
+    {
+      "path": ".pypirc",
+      "group": "secrets",
+      "severity": "medium",
+      "signatures": [
+        "\\[pypi\\]"
+      ],
+      "description": "PyPI upload credentials."
+    },
+    {
+      "path": ".bash_history",
+      "group": "secrets",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(cd|ls|sudo|git|ssh|curl)\\s"
+      ],
+      "description": "Shell history revealing administrative commands and internal hosts."
+    },
+    {
+      "path": "docker-compose.yml",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^services:"
+      ],
+      "description": "Container topology with environment variables and internal service names."
+    },
+    {
+      "path": "Dockerfile",
+      "group": "deployment",
+      "severity": "low",
+      "signatures": [
+        "(?m)^FROM\\s"
+      ],
+      "description": "Build recipe revealing base images and internal paths."
+    },
+    {
+      "path": "Jenkinsfile",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^pipeline\\s*\\{"
+      ],
+      "description": "CI pipeline definition with build and deployment steps."
+    },
+    {
+      "path": ".gitlab-ci.yml",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(stages|script):"
+      ],
+      "description": "CI pipeline definition."
+    },
+    {
+      "path": ".travis.yml",
+      "group": "deployment",
+      "severity": "low",
+      "signatures": [
+        "(?m)^language:"
+      ],
+      "description": "CI configuration."
+    },
+    {
+      "path": "terraform.tfstate",
+      "group": "deployment",
+      "severity": "critical",
+      "signatures": [
+        "\"terraform_version\""
+      ],
+      "description": "Terraform state containing resource identifiers and sometimes secrets."
+    },
+    {
+      "path": "terraform.tfstate.backup",
+      "group": "deployment",
+      "severity": "critical",
+      "signatures": [
+        "\"terraform_version\""
+      ],
+      "description": "Previous Terraform state."
+    },
+    {
+      "path": "backup.sql",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [
+        "(?i)(CREATE TABLE|INSERT INTO|MySQL dump)"
+      ],
+      "description": "Database dump containing application data."
+    },
+    {
+      "path": "db.sql",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [
+        "(?i)(CREATE TABLE|INSERT INTO)"
+      ],
+      "description": "Database dump."
+    },
+    {
+      "path": "dump.sql",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [
+        "(?i)(CREATE TABLE|INSERT INTO)"
+      ],
+      "description": "Database dump."
+    },
+    {
+      "path": "backup.zip",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [],
+      "description": "Archive of the application or database."
+    },
+    {
+      "path": "backup.tar.gz",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [],
+      "description": "Compressed archive of the application or database."
+    },
+    {
+      "path": "site.zip",
+      "group": "backup",
+      "severity": "medium",
+      "signatures": [],
+      "description": "Site archive, typically a full source copy."
+    },
+    {
+      "path": "www.zip",
+      "group": "backup",
+      "severity": "medium",
+      "signatures": [],
+      "description": "Web root archive."
+    },
+    {
+      "path": "error.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\[?\\d{4}-\\d{2}-\\d{2}"
+      ],
+      "description": "Application error log with stack traces and internal paths."
+    },
+    {
+      "path": "debug.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\[?\\d{4}-\\d{2}-\\d{2}"
+      ],
+      "description": "Debug log with verbose internal detail."
+    },
+    {
+      "path": "access.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "(?m)\"(GET|POST|HEAD) /"
+      ],
+      "description": "Access log revealing traffic, clients and URL structure."
+    },
+    {
+      "path": "app.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\[?\\d{4}-\\d{2}-\\d{2}"
+      ],
+      "description": "Application log."
+    },
+    {
+      "path": "php_errors.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "PHP (Fatal|Warning|Notice)"
+      ],
+      "description": "PHP error log with file paths and query fragments."
+    },
+    {
+      "path": "phpinfo.php",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "PHP Version"
+      ],
+      "description": "Full PHP configuration, modules and environment."
+    },
+    {
+      "path": "info.php",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "PHP Version"
+      ],
+      "description": "phpinfo output."
+    },
+    {
+      "path": "server-status",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "Apache Server Status"
+      ],
+      "description": "Apache status page listing active requests and internal URLs."
+    },
+    {
+      "path": "server-info",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "Apache Server Information"
+      ],
+      "description": "Apache module and configuration summary."
+    },
+    {
+      "path": "actuator/env",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "\"propertySources\""
+      ],
+      "description": "Spring Boot environment endpoint exposing configuration and secrets."
+    },
+    {
+      "path": "actuator/health",
+      "group": "diagnostics",
+      "severity": "low",
+      "signatures": [
+        "\"status\"\\s*:"
+      ],
+      "description": "Spring Boot health endpoint disclosing component state."
+    },
+    {
+      "path": "actuator/heapdump",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [],
+      "description": "JVM heap dump, which contains in-memory credentials."
+    },
+    {
+      "path": "metrics",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^# HELP"
+      ],
+      "description": "Prometheus metrics exposing internal counters and labels."
+    },
+    {
+      "path": "swagger.json",
+      "group": "api_docs",
+      "severity": "low",
+      "signatures": [
+        "\"swagger\"\\s*:"
+      ],
+      "description": "API description revealing every endpoint and parameter."
+    },
+    {
+      "path": "openapi.json",
+      "group": "api_docs",
+      "severity": "low",
+      "signatures": [
+        "\"openapi\"\\s*:"
+      ],
+      "description": "OpenAPI description of the service."
+    },
+    {
+      "path": "api-docs",
+      "group": "api_docs",
+      "severity": "low",
+      "signatures": [
+        "swagger|openapi"
+      ],
+      "description": "Interactive API documentation."
+    },
+    {
+      "path": "app.js.map",
+      "group": "source_maps",
+      "severity": "low",
+      "signatures": [
+        "\"mappings\""
+      ],
+      "description": "Source map that reconstructs the original client-side code."
+    },
+    {
+      "path": "main.js.map",
+      "group": "source_maps",
+      "severity": "low",
+      "signatures": [
+        "\"mappings\""
+      ],
+      "description": "Source map for the main bundle."
+    },
+    {
+      "path": "package.json",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\"dependencies\""
+      ],
+      "description": "Node.js manifest revealing dependencies and scripts."
+    },
+    {
+      "path": "composer.json",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\"require\""
+      ],
+      "description": "PHP manifest revealing dependencies."
+    },
+    {
+      "path": "composer.lock",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\"packages\""
+      ],
+      "description": "Exact PHP dependency versions, enabling CVE matching."
+    },
+    {
+      "path": "package-lock.json",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\"lockfileVersion\""
+      ],
+      "description": "Exact Node.js dependency versions."
+    },
+    {
+      "path": "yarn.lock",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "(?m)^\\S+@.*:$"
+      ],
+      "description": "Exact dependency versions."
+    },
+    {
+      "path": "requirements.txt",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "(?m)^[A-Za-z0-9_.-]+=="
+      ],
+      "description": "Pinned Python dependency versions."
+    },
+    {
+      "path": ".vscode/settings.json",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\"editor\\."
+      ],
+      "description": "Editor configuration revealing local paths."
+    },
+    {
+      "path": ".idea/workspace.xml",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "<project"
+      ],
+      "description": "IDE workspace metadata with local file paths."
+    },
+    {
+      "path": "crossdomain.xml",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "cross-domain-policy"
+      ],
+      "description": "Legacy Flash cross-domain policy."
+    },
+    {
+      "path": ".well-known/security.txt",
+      "group": "config",
+      "severity": "info",
+      "signatures": [
+        "Contact:"
+      ],
+      "description": "Security contact information (expected but worth recording)."
+    },
+    {
+      "path": ".well-known/openid-configuration",
+      "group": "api_docs",
+      "severity": "info",
+      "signatures": [
+        "\"issuer\""
+      ],
+      "description": "OpenID Connect metadata describing the identity provider."
+    },
+    {
+      "path": "adminer.php",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "adminer"
+      ],
+      "description": "Database administration interface."
+    },
+    {
+      "path": "phpmyadmin/",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "phpMyAdmin"
+      ],
+      "description": "Database administration interface."
+    },
+    {
+      "path": "wp-config.php.bak",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "DB_PASSWORD"
+      ],
+      "description": "Backup of the WordPress config with live credentials."
+    },
+    {
+      "path": "wp-config.php~",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "DB_PASSWORD"
+      ],
+      "description": "Editor backup of wp-config.php."
+    },
+    {
+      "path": "wp-content/debug.log",
+      "group": "logs",
+      "severity": "high",
+      "signatures": [
+        "(?m)^\\[\\d{2}-\\w{3}-\\d{4}"
+      ],
+      "description": "WordPress debug log with stack traces and queries."
+    },
+    {
+      "path": "wp-content/uploads/",
+      "group": "config",
+      "severity": "low",
+      "signatures": [],
+      "description": "Upload directory listing or index."
+    },
+    {
+      "path": "xmlrpc.php",
+      "group": "diagnostics",
+      "severity": "low",
+      "signatures": [
+        "XML-RPC server accepts POST requests"
+      ],
+      "description": "XML-RPC enabled: password guessing and pingback abuse."
+    },
+    {
+      "path": "wp-json/wp/v2/users",
+      "group": "api_docs",
+      "severity": "medium",
+      "signatures": [
+        "\"slug\"\\s*:"
+      ],
+      "description": "WordPress REST API exposes author accounts."
+    },
+    {
+      "path": "readme.html",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "WordPress"
+      ],
+      "description": "WordPress version file."
+    },
+    {
+      "path": "license.txt",
+      "group": "config",
+      "severity": "info",
+      "signatures": [
+        "WordPress"
+      ],
+      "description": "Bundled licence file revealing the platform."
+    },
+    {
+      "path": "storage/logs/laravel.log",
+      "group": "logs",
+      "severity": "high",
+      "signatures": [
+        "\\.(ERROR|INFO|DEBUG):"
+      ],
+      "description": "Laravel log with stack traces, queries and session data."
+    },
+    {
+      "path": "telescope",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "Telescope"
+      ],
+      "description": "Laravel Telescope records requests, mail and jobs."
+    },
+    {
+      "path": "_ignition/health-check",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "can_execute_commands|ignition"
+      ],
+      "description": "Ignition debug endpoint."
+    },
+    {
+      "path": "vendor/autoload.php",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "Composer|vendor"
+      ],
+      "description": "Composer autoloader present."
+    },
+    {
+      "path": "phpunit.xml",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "<phpunit"
+      ],
+      "description": "Test configuration, sometimes with credentials."
+    },
+    {
+      "path": ".phpunit.result.cache",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "phpunit"
+      ],
+      "description": "Test cache with class and method names."
+    },
+    {
+      "path": "db.php",
+      "group": "secrets",
+      "severity": "high",
+      "signatures": [
+        "(?i)(mysqli?_connect|DB_PASSWORD)"
+      ],
+      "description": "Database connection script."
+    },
+    {
+      "path": "test.php",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "(?i)(phpinfo|mysql_connect)"
+      ],
+      "description": "Ad-hoc test script left in production."
+    },
+    {
+      "path": "db.sqlite3",
+      "group": "backup",
+      "severity": "critical",
+      "signatures": [
+        "SQLite format 3"
+      ],
+      "description": "SQLite database served as a static file."
+    },
+    {
+      "path": "__pycache__/",
+      "group": "config",
+      "severity": "low",
+      "signatures": [],
+      "description": "Bytecode directory, reveals module names."
+    },
+    {
+      "path": "static/admin/",
+      "group": "config",
+      "severity": "info",
+      "signatures": [],
+      "description": "Django admin static assets confirm the framework."
+    },
+    {
+      "path": "requirements-dev.txt",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "(?m)^[A-Za-z0-9_.-]+=="
+      ],
+      "description": "Development dependency pins."
+    },
+    {
+      "path": "Pipfile",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\\[\\[source\\]\\]|\\[packages\\]"
+      ],
+      "description": "Pipenv manifest."
+    },
+    {
+      "path": "poetry.lock",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\\[\\[package\\]\\]"
+      ],
+      "description": "Poetry lockfile with exact versions."
+    },
+    {
+      "path": "uv.lock",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\\[\\[package\\]\\]"
+      ],
+      "description": "uv lockfile with exact versions."
+    },
+    {
+      "path": "pyproject.toml",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\\[project\\]|\\[tool\\."
+      ],
+      "description": "Python project manifest."
+    },
+    {
+      "path": "setup.py",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "setup\\("
+      ],
+      "description": "Python packaging script."
+    },
+    {
+      "path": "tox.ini",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\\[tox\\]|\\[testenv\\]"
+      ],
+      "description": "Test matrix configuration."
+    },
+    {
+      "path": "application.yml",
+      "group": "config",
+      "severity": "high",
+      "signatures": [
+        "(?m)^\\s*(spring|server):"
+      ],
+      "description": "Spring configuration with datasource settings."
+    },
+    {
+      "path": "bootstrap.properties",
+      "group": "config",
+      "severity": "high",
+      "signatures": [
+        "(?m)^spring\\."
+      ],
+      "description": "Spring bootstrap configuration."
+    },
+    {
+      "path": "h2-console",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "H2 Console|h2-console"
+      ],
+      "description": "H2 database console exposed."
+    },
+    {
+      "path": "manager/html",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "Tomcat|Manager"
+      ],
+      "description": "Tomcat manager application."
+    },
+    {
+      "path": "host-manager/html",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "Tomcat|Host Manager"
+      ],
+      "description": "Tomcat host manager."
+    },
+    {
+      "path": "jolokia/",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "jolokia"
+      ],
+      "description": "JMX over HTTP bridge."
+    },
+    {
+      "path": "threaddump",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "\\\"threadName\\\"|\\\"threads\\\""
+      ],
+      "description": "JVM thread dump endpoint."
+    },
+    {
+      "path": "node_modules/.package-lock.json",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "lockfileVersion"
+      ],
+      "description": "Nested lockfile."
+    },
+    {
+      "path": ".next/BUILD_ID",
+      "group": "config",
+      "severity": "low",
+      "signatures": [],
+      "description": "Next.js build identifier."
+    },
+    {
+      "path": "_nuxt/",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "__NUXT__|_nuxt"
+      ],
+      "description": "Nuxt build directory."
+    },
+    {
+      "path": "webpack.config.js",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "module.exports"
+      ],
+      "description": "Build configuration with internal paths."
+    },
+    {
+      "path": "tsconfig.json",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "compilerOptions"
+      ],
+      "description": "TypeScript configuration."
+    },
+    {
+      "path": ".babelrc",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "presets"
+      ],
+      "description": "Babel configuration."
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(name|on|jobs):"
+      ],
+      "description": "GitHub Actions workflow."
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(name|on|jobs):"
+      ],
+      "description": "Deployment workflow with secrets references."
+    },
+    {
+      "path": "azure-pipelines.yml",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(trigger|steps):"
+      ],
+      "description": "Azure DevOps pipeline."
+    },
+    {
+      "path": "bitbucket-pipelines.yml",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^pipelines:"
+      ],
+      "description": "Bitbucket pipeline."
+    },
+    {
+      "path": ".circleci/config.yml",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^version:|jobs:"
+      ],
+      "description": "CircleCI configuration."
+    },
+    {
+      "path": ".drone.yml",
+      "group": "deployment",
+      "severity": "low",
+      "signatures": [
+        "(?m)^kind:"
+      ],
+      "description": "Drone pipeline."
+    },
+    {
+      "path": "Procfile",
+      "group": "deployment",
+      "severity": "low",
+      "signatures": [
+        "(?m)^web:|^worker:"
+      ],
+      "description": "Process definition with start commands."
+    },
+    {
+      "path": "Makefile",
+      "group": "deployment",
+      "severity": "low",
+      "signatures": [
+        "(?m)^[a-zA-Z_-]+:"
+      ],
+      "description": "Build targets with internal commands."
+    },
+    {
+      "path": ".azure/credentials",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "(?i)(client_secret|subscription_id)"
+      ],
+      "description": "Azure service principal credentials."
+    },
+    {
+      "path": ".kube/config",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "clusters:|client-key-data"
+      ],
+      "description": "Kubernetes kubeconfig with cluster credentials."
+    },
+    {
+      "path": "service-account.json",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "\"type\": \"service_account\""
+      ],
+      "description": "GCP service account key."
+    },
+    {
+      "path": "firebase.json",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "hosting|firestore"
+      ],
+      "description": "Firebase project configuration."
+    },
+    {
+      "path": ".firebaserc",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "projects"
+      ],
+      "description": "Firebase project alias."
+    },
+    {
+      "path": "serverless.yml",
+      "group": "deployment",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(service|provider|functions):"
+      ],
+      "description": "Serverless framework definition."
+    },
+    {
+      "path": "helm/values.yaml",
+      "group": "deployment",
+      "severity": "low",
+      "signatures": [
+        "(?m)^[a-zA-Z]+:"
+      ],
+      "description": "Helm values, often with secrets."
+    },
+    {
+      "path": "k8s/deployment.yaml",
+      "group": "deployment",
+      "severity": "low",
+      "signatures": [
+        "apiVersion:|kind:"
+      ],
+      "description": "Kubernetes manifest."
+    },
+    {
+      "path": "site.tar.gz",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [],
+      "description": "Site archive."
+    },
+    {
+      "path": "www.tar.gz",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [],
+      "description": "Web root archive."
+    },
+    {
+      "path": "public_html.zip",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [],
+      "description": "Web root archive."
+    },
+    {
+      "path": "backup.7z",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [],
+      "description": "Compressed backup."
+    },
+    {
+      "path": "db.sql.gz",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [],
+      "description": "Compressed database dump."
+    },
+    {
+      "path": "dump.sql.gz",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [],
+      "description": "Compressed database dump."
+    },
+    {
+      "path": "mysql.sql",
+      "group": "backup",
+      "severity": "high",
+      "signatures": [
+        "(?i)(CREATE TABLE|INSERT INTO)"
+      ],
+      "description": "MySQL dump."
+    },
+    {
+      "path": "logs/error.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\[\\d{4}-\\d{2}-\\d{2}"
+      ],
+      "description": "Application error log."
+    },
+    {
+      "path": "log/access.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "(?m)\\\"(GET|POST) /"
+      ],
+      "description": "Access log."
+    },
+    {
+      "path": "nginx.access.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "(?m)\\\"(GET|POST) /"
+      ],
+      "description": "Nginx access log."
+    },
+    {
+      "path": "mysql_error.log",
+      "group": "logs",
+      "severity": "medium",
+      "signatures": [
+        "(?i)(error|warning)"
+      ],
+      "description": "Database error log."
+    },
+    {
+      "path": "healthz",
+      "group": "diagnostics",
+      "severity": "info",
+      "signatures": [
+        "\\\"status\\\"|ok"
+      ],
+      "description": "Kubernetes-style health endpoint."
+    },
+    {
+      "path": "readyz",
+      "group": "diagnostics",
+      "severity": "info",
+      "signatures": [
+        "\\\"status\\\"|ok"
+      ],
+      "description": "Readiness endpoint."
+    },
+    {
+      "path": "livez",
+      "group": "diagnostics",
+      "severity": "info",
+      "signatures": [
+        "\\\"status\\\"|ok"
+      ],
+      "description": "Liveness endpoint."
+    },
+    {
+      "path": "version",
+      "group": "diagnostics",
+      "severity": "low",
+      "signatures": [
+        "\\d+\\.\\d+"
+      ],
+      "description": "Version endpoint."
+    },
+    {
+      "path": "api/health",
+      "group": "diagnostics",
+      "severity": "info",
+      "signatures": [
+        "\\\"status\\\""
+      ],
+      "description": "API health endpoint."
+    },
+    {
+      "path": "api/status",
+      "group": "diagnostics",
+      "severity": "low",
+      "signatures": [
+        "\\\"(status|version)\\\""
+      ],
+      "description": "API status endpoint."
+    },
+    {
+      "path": "debug/vars",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "\\\"cmdline\\\"|\\\"memstats\\\""
+      ],
+      "description": "Go expvar endpoint with runtime state."
+    },
+    {
+      "path": "pprof/",
+      "group": "diagnostics",
+      "severity": "high",
+      "signatures": [
+        "Types of profiles available|goroutine"
+      ],
+      "description": "Go pprof profiling endpoint."
+    },
+    {
+      "path": "prometheus/",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "# HELP"
+      ],
+      "description": "Prometheus UI."
+    },
+    {
+      "path": "alertmanager/",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "Alertmanager"
+      ],
+      "description": "Alertmanager UI."
+    },
+    {
+      "path": "zabbix/",
+      "group": "diagnostics",
+      "severity": "medium",
+      "signatures": [
+        "Zabbix"
+      ],
+      "description": "Zabbix monitoring UI."
+    },
+    {
+      "path": "Thumbs.db",
+      "group": "config",
+      "severity": "low",
+      "signatures": [],
+      "description": "Windows thumbnail cache leaking file names."
+    },
+    {
+      "path": ".user.ini",
+      "group": "config",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\s*(auto_prepend_file|open_basedir)"
+      ],
+      "description": "PHP per-directory configuration."
+    },
+    {
+      "path": "php.ini",
+      "group": "config",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^\\s*(display_errors|memory_limit)"
+      ],
+      "description": "PHP configuration file."
+    },
+    {
+      "path": ".editorconfig",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "root ="
+      ],
+      "description": "Editor configuration."
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "repos:"
+      ],
+      "description": "Pre-commit hooks with repository URLs."
+    },
+    {
+      "path": ".dockerignore",
+      "group": "config",
+      "severity": "low",
+      "signatures": [],
+      "description": "Docker ignore rules."
+    },
+    {
+      "path": ".gitattributes",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "text="
+      ],
+      "description": "Git attributes."
+    },
+    {
+      "path": ".gitmodules",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "\\[submodule"
+      ],
+      "description": "Submodule definitions with repository URLs."
+    },
+    {
+      "path": "CODEOWNERS",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "@"
+      ],
+      "description": "Code ownership revealing team structure."
+    },
+    {
+      "path": ".mailmap",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "@"
+      ],
+      "description": "Author identity mapping."
+    },
+    {
+      "path": "robots.txt",
+      "group": "config",
+      "severity": "info",
+      "signatures": [
+        "(?im)^(user-agent|disallow):"
+      ],
+      "description": "Crawl directives that often list private paths."
+    },
+    {
+      "path": "sitemap.xml",
+      "group": "config",
+      "severity": "info",
+      "signatures": [
+        "<urlset"
+      ],
+      "description": "Sitemap listing every public URL."
+    },
+    {
+      "path": "clientaccesspolicy.xml",
+      "group": "config",
+      "severity": "low",
+      "signatures": [
+        "cross-domain-policy"
+      ],
+      "description": "Silverlight cross-domain policy."
+    },
+    {
+      "path": "ads.txt",
+      "group": "config",
+      "severity": "info",
+      "signatures": [
+        "placeholder|contact="
+      ],
+      "description": "Advertising authorisation file."
+    },
+    {
+      "path": "humans.txt",
+      "group": "config",
+      "severity": "info",
+      "signatures": [
+        "TEAM|CONTACT"
+      ],
+      "description": "Team credits with names and contacts."
+    },
+    {
+      "path": ".well-known/change-password",
+      "group": "config",
+      "severity": "info",
+      "signatures": [],
+      "description": "Password change location hint."
+    },
+    {
+      "path": ".well-known/nodeinfo",
+      "group": "config",
+      "severity": "info",
+      "signatures": [
+        "links"
+      ],
+      "description": "NodeInfo metadata."
+    },
+    {
+      "path": "id_dsa",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "-----BEGIN DSA PRIVATE KEY-----"
+      ],
+      "description": "DSA private key."
+    },
+    {
+      "path": "id_ecdsa",
+      "group": "secrets",
+      "severity": "critical",
+      "signatures": [
+        "-----BEGIN EC PRIVATE KEY-----"
+      ],
+      "description": "ECDSA private key."
+    },
+    {
+      "path": ".ssh/config",
+      "group": "config",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^Host "
+      ],
+      "description": "SSH client configuration with internal hosts."
+    },
+    {
+      "path": ".ssh/known_hosts",
+      "group": "config",
+      "severity": "medium",
+      "signatures": [
+        "ssh-rsa|ssh-ed25519"
+      ],
+      "description": "Known hosts revealing internal infrastructure."
+    },
+    {
+      "path": ".zsh_history",
+      "group": "secrets",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(cd|ls|sudo|git|ssh)\\s"
+      ],
+      "description": "Shell history with administrative commands."
+    },
+    {
+      "path": ".mysql_history",
+      "group": "secrets",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(SELECT|INSERT|UPDATE|CREATE)"
+      ],
+      "description": "MySQL client history with query text."
+    },
+    {
+      "path": ".psql_history",
+      "group": "secrets",
+      "severity": "medium",
+      "signatures": [
+        "(?m)^(SELECT|INSERT|UPDATE|CREATE)"
+      ],
+      "description": "PostgreSQL client history."
+    }
+  ]
+}

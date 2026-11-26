@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "webscout_engine"
+version = "2.0.0"
+description = "webscout_engine - asynchronous, scope-aware security assessment with a 1 390-probe arsenal"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "webscout_engine Project" }]
+keywords = ["security", "pentest", "scanner", "reconnaissance", "asyncio", "vulnerability", "sarif"]
+classifiers = [
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Framework :: AsyncIO",
+]
+dependencies = [
+    "aiohttp>=3.9,<4",
+    "rich>=13.7,<15",
+    "typer>=0.12,<1",
+    "pydantic>=2.6,<3",
+    "PyYAML>=6.0,<7",
+    "Jinja2>=3.1,<4",
+    "dnspython>=2.6,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9",
+    "pytest-asyncio>=0.23,<1",
+    "ruff>=0.4",
+    "mypy>=1.9",
+]
+
+[project.scripts]
+webscout_engine = "webscout_engine.cli:main"
+webscout_engine = "webscout_engine.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["webscout_engine*"]
+
+[tool.setuptools.package-data]
+webscout_engine = [
+    "data/*.json",
+    "data/wordlists/*.txt",
+    "report/templates/*.j2",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 110
+extend-exclude = [".venv", "examples", "build", "dist"]
+target-version = "py311"
+src = ["."]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "C4", "SIM"]
+# UP042: `class X(str, Enum)` is intentional - it keeps JSON serialisation and
+# plain-string comparisons working exactly as documented for pydantic v2.
+ignore = ["E501", "B008", "SIM108", "UP042"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = false
+check_untyped_defs = true
+no_implicit_optional = true
+exclude = ["tests/"]

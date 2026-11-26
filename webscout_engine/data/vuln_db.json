@@ -1,0 +1,364 @@
+{
+  "version": "1.0",
+  "note": "Curated offline advisory sample shipped for demonstration and offline CI. It is not a vulnerability database: confirm every match against the vendor advisory and the actual deployed version before acting on it.",
+  "packages": {
+    "django": [
+      {
+        "id": "CVE-2024-27351",
+        "affected": "<4.2.11",
+        "severity": "medium",
+        "cwe": "CWE-1333",
+        "summary": "Potential ReDoS in the Truncator and Truncator-like utilities."
+      },
+      {
+        "id": "CVE-2023-46695",
+        "affected": "<4.2.7",
+        "severity": "high",
+        "cwe": "CWE-770",
+        "summary": "Denial of service in UsernameField on Windows through a very long password."
+      }
+    ],
+    "flask": [
+      {
+        "id": "CVE-2023-30861",
+        "affected": "<2.3.2",
+        "severity": "high",
+        "cwe": "CWE-539",
+        "summary": "Session cookie is cached by a proxy and served to another client."
+      }
+    ],
+    "jinja2": [
+      {
+        "id": "CVE-2024-34064",
+        "affected": "<3.1.4",
+        "severity": "medium",
+        "cwe": "CWE-79",
+        "summary": "xmlattr filter allows injected keys to break out of an attribute."
+      }
+    ],
+    "pyyaml": [
+      {
+        "id": "CVE-2020-14343",
+        "affected": "<5.4",
+        "severity": "critical",
+        "cwe": "CWE-502",
+        "summary": "Full loader allows arbitrary code execution through crafted YAML."
+      }
+    ],
+    "requests": [
+      {
+        "id": "CVE-2023-32681",
+        "affected": "<2.31.0",
+        "severity": "medium",
+        "cwe": "CWE-200",
+        "summary": "Proxy-Authorization header leaks to destination servers on redirect."
+      }
+    ],
+    "urllib3": [
+      {
+        "id": "CVE-2023-43804",
+        "affected": "<2.0.6",
+        "severity": "medium",
+        "cwe": "CWE-200",
+        "summary": "Cookie header is forwarded on cross-origin redirects."
+      }
+    ],
+    "cryptography": [
+      {
+        "id": "CVE-2023-49083",
+        "affected": "<41.0.6",
+        "severity": "medium",
+        "cwe": "CWE-476",
+        "summary": "NULL pointer dereference when loading PKCS#7 certificates."
+      }
+    ],
+    "aiohttp": [
+      {
+        "id": "CVE-2024-23334",
+        "affected": "<3.9.4",
+        "severity": "high",
+        "cwe": "CWE-22",
+        "summary": "Path traversal in the static file handler when follow_symlinks is enabled."
+      }
+    ],
+    "werkzeug": [
+      {
+        "id": "CVE-2023-46136",
+        "affected": "<3.0.1",
+        "severity": "medium",
+        "cwe": "CWE-400",
+        "summary": "Multipart parser consumes excessive CPU on a crafted payload."
+      }
+    ],
+    "starlette": [
+      {
+        "id": "CVE-2024-47874",
+        "affected": "<0.40.0",
+        "severity": "high",
+        "cwe": "CWE-770",
+        "summary": "Multipart form parsing allows unbounded memory growth."
+      }
+    ],
+    "pillow": [
+      {
+        "id": "CVE-2024-28219",
+        "affected": "<10.3.0",
+        "severity": "high",
+        "cwe": "CWE-120",
+        "summary": "Buffer overflow in _imagingcms when parsing crafted images."
+      }
+    ],
+    "express": [
+      {
+        "id": "CVE-2024-29041",
+        "affected": "<4.19.2",
+        "severity": "medium",
+        "cwe": "CWE-601",
+        "summary": "Open redirect through malformed URLs passed to res.location."
+      }
+    ],
+    "lodash": [
+      {
+        "id": "CVE-2021-23337",
+        "affected": "<4.17.21",
+        "severity": "high",
+        "cwe": "CWE-78",
+        "summary": "Command injection through template options."
+      }
+    ],
+    "axios": [
+      {
+        "id": "CVE-2023-45857",
+        "affected": "<1.6.0",
+        "severity": "medium",
+        "cwe": "CWE-200",
+        "summary": "XSRF token is sent to third-party hosts on cross-origin requests."
+      }
+    ],
+    "jsonwebtoken": [
+      {
+        "id": "CVE-2022-23529",
+        "affected": "<9.0.0",
+        "severity": "high",
+        "cwe": "CWE-20",
+        "summary": "Improper validation in jwt.verify allows a crafted secret object."
+      }
+    ],
+    "moment": [
+      {
+        "id": "CVE-2022-31129",
+        "affected": "<2.29.4",
+        "severity": "high",
+        "cwe": "CWE-1333",
+        "summary": "ReDoS in date parsing of long user-supplied strings."
+      }
+    ],
+    "jquery": [
+      {
+        "id": "CVE-2020-11022",
+        "affected": "<3.5.0",
+        "severity": "medium",
+        "cwe": "CWE-79",
+        "summary": "HTML passed to DOM manipulation methods can execute script."
+      }
+    ],
+    "bootstrap": [
+      {
+        "id": "CVE-2019-8331",
+        "affected": "<3.4.1",
+        "severity": "medium",
+        "cwe": "CWE-79",
+        "summary": "Cross-site scripting in tooltip and popover data attributes."
+      }
+    ],
+    "next": [
+      {
+        "id": "CVE-2024-34351",
+        "affected": "<14.1.1",
+        "severity": "high",
+        "cwe": "CWE-918",
+        "summary": "Server-side request forgery in the server actions redirect handling."
+      }
+    ],
+    "minimist": [
+      {
+        "id": "CVE-2021-44906",
+        "affected": "<1.2.6",
+        "severity": "critical",
+        "cwe": "CWE-1321",
+        "summary": "Prototype pollution through crafted command-line arguments."
+      }
+    ],
+    "serialize-javascript": [
+      {
+        "id": "CVE-2020-7660",
+        "affected": "<3.1.0",
+        "severity": "high",
+        "cwe": "CWE-79",
+        "summary": "Unsanitised input is serialised into executable script."
+      }
+    ],
+    "node-fetch": [
+      {
+        "id": "CVE-2022-0235",
+        "affected": "<2.6.7",
+        "severity": "medium",
+        "cwe": "CWE-200",
+        "summary": "Sensitive headers are forwarded on redirect to another host."
+      }
+    ],
+    "ejs": [
+      {
+        "id": "CVE-2024-33883",
+        "affected": "<3.1.10",
+        "severity": "medium",
+        "cwe": "CWE-1321",
+        "summary": "Prototype pollution in the template options handling."
+      }
+    ],
+    "handlebars": [
+      {
+        "id": "CVE-2021-23369",
+        "affected": "<4.7.7",
+        "severity": "high",
+        "cwe": "CWE-1321",
+        "summary": "Remote code execution through prototype pollution in compile."
+      }
+    ],
+    "vm2": [
+      {
+        "id": "CVE-2023-37466",
+        "affected": "<3.9.19",
+        "severity": "critical",
+        "cwe": "CWE-94",
+        "summary": "Sandbox escape allows arbitrary code execution on the host."
+      }
+    ],
+    "guzzlehttp/guzzle": [
+      {
+        "id": "CVE-2022-31042",
+        "affected": "<7.4.5",
+        "severity": "medium",
+        "cwe": "CWE-200",
+        "summary": "Cookie header leaks on cross-domain redirect."
+      }
+    ],
+    "symfony/http-kernel": [
+      {
+        "id": "CVE-2023-46734",
+        "affected": "<6.3.8",
+        "severity": "medium",
+        "cwe": "CWE-79",
+        "summary": "Cross-site scripting in the HTML sanitizer for specific tags."
+      }
+    ],
+    "laravel/framework": [
+      {
+        "id": "CVE-2024-40075",
+        "affected": "<10.48.10",
+        "severity": "medium",
+        "cwe": "CWE-20",
+        "summary": "Improper validation of the request host in signed URL generation."
+      }
+    ],
+    "log4j-core": [
+      {
+        "id": "CVE-2021-44228",
+        "affected": "<2.15.0",
+        "severity": "critical",
+        "cwe": "CWE-502",
+        "summary": "JNDI lookup in log messages allows remote code execution (Log4Shell)."
+      }
+    ],
+    "spring-beans": [
+      {
+        "id": "CVE-2022-22965",
+        "affected": "<5.3.18",
+        "severity": "critical",
+        "cwe": "CWE-94",
+        "summary": "Data binding to class loader properties allows code execution (Spring4Shell)."
+      }
+    ],
+    "jackson-databind": [
+      {
+        "id": "CVE-2020-36518",
+        "affected": "<2.12.6",
+        "severity": "high",
+        "cwe": "CWE-787",
+        "summary": "Deeply nested JSON causes a stack overflow denial of service."
+      }
+    ],
+    "commons-collections": [
+      {
+        "id": "CVE-2015-6420",
+        "affected": "<3.2.2",
+        "severity": "critical",
+        "cwe": "CWE-502",
+        "summary": "Deserialisation gadget chain enables remote code execution."
+      }
+    ],
+    "struts2-core": [
+      {
+        "id": "CVE-2023-50164",
+        "affected": "<6.4.0",
+        "severity": "critical",
+        "cwe": "CWE-22",
+        "summary": "Path traversal in file upload allows uploading an executable file."
+      }
+    ],
+    "tomcat-embed-core": [
+      {
+        "id": "CVE-2023-45648",
+        "affected": "<9.0.80",
+        "severity": "medium",
+        "cwe": "CWE-444",
+        "summary": "Request smuggling through crafted trailer headers."
+      }
+    ],
+    "mysql-connector-java": [
+      {
+        "id": "CVE-2023-22102",
+        "affected": "<8.1.0",
+        "severity": "high",
+        "cwe": "CWE-20",
+        "summary": "Improper input validation in the connector allows a takeover of the connection."
+      }
+    ],
+    "actionpack": [
+      {
+        "id": "CVE-2024-26143",
+        "affected": "<7.1.3.2",
+        "severity": "medium",
+        "cwe": "CWE-79",
+        "summary": "Possible cross-site scripting in the response rendering helpers."
+      }
+    ],
+    "rack": [
+      {
+        "id": "CVE-2024-26141",
+        "affected": "<3.0.9.1",
+        "severity": "medium",
+        "cwe": "CWE-1333",
+        "summary": "ReDoS in the multipart parser with crafted boundaries."
+      }
+    ],
+    "nokogiri": [
+      {
+        "id": "CVE-2022-24836",
+        "affected": "<1.13.4",
+        "severity": "high",
+        "cwe": "CWE-1333",
+        "summary": "Inefficient regular expression in the HTML parsing helpers."
+      }
+    ],
+    "devise": [
+      {
+        "id": "CVE-2019-16676",
+        "affected": "<4.7.1",
+        "severity": "medium",
+        "cwe": "CWE-20",
+        "summary": "Incorrect handling of the reset password token in some configurations."
+      }
+    ]
+  }
+}

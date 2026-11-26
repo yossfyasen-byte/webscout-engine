@@ -1,0 +1,8 @@
+# webscout_engine runtime dependencies (pinned ranges, resolved by pip on first run)
+aiohttp>=3.9,<4
+rich>=13.7,<15
+typer>=0.12,<1
+pydantic>=2.6,<3
+PyYAML>=6.0,<7
+Jinja2>=3.1,<4
+dnspython>=2.6,<3

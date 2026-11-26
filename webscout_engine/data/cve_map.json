@@ -1,0 +1,174 @@
+{
+  "version": "1.0",
+  "description": "Offline CVE correlation map. A match only means the fingerprinted version falls inside the affected range; it is a potential exposure, never a confirmed vulnerability.",
+  "nginx": [
+    {
+      "id": "CVE-2021-23017",
+      "affected": "<1.21.0",
+      "severity": "high",
+      "summary": "Off-by-one in the DNS resolver allows a one-byte memory overwrite."
+    }
+  ],
+  "apache http server": [
+    {
+      "id": "CVE-2021-41773",
+      "affected": "<2.4.51",
+      "severity": "critical",
+      "summary": "Path traversal and remote code execution in the default configuration."
+    },
+    {
+      "id": "CVE-2024-38476",
+      "affected": "<2.4.60",
+      "severity": "high",
+      "summary": "Possible source code disclosure through malformed request handling."
+    }
+  ],
+  "microsoft iis": [
+    {
+      "id": "CVE-2022-21907",
+      "affected": "<10.0",
+      "severity": "critical",
+      "summary": "HTTP protocol stack remote code execution."
+    }
+  ],
+  "php": [
+    {
+      "id": "CVE-2024-4577",
+      "affected": "<8.3.8",
+      "severity": "critical",
+      "summary": "CGI argument injection on Windows leading to code execution."
+    }
+  ],
+  "jquery": [
+    {
+      "id": "CVE-2020-11022",
+      "affected": "<3.5.0",
+      "severity": "medium",
+      "summary": "HTML passed to jQuery DOM manipulation methods may execute script."
+    },
+    {
+      "id": "CVE-2019-11358",
+      "affected": "<3.4.0",
+      "severity": "medium",
+      "summary": "Prototype pollution through jQuery.extend with deep merge."
+    }
+  ],
+  "bootstrap": [
+    {
+      "id": "CVE-2019-8331",
+      "affected": "<3.4.1",
+      "severity": "medium",
+      "summary": "Cross-site scripting in the tooltip and popover data attributes."
+    }
+  ],
+  "wordpress": [
+    {
+      "id": "CVE-2022-21661",
+      "affected": "<5.8.4",
+      "severity": "high",
+      "summary": "SQL injection through WP_Query."
+    },
+    {
+      "id": "CVE-2023-2745",
+      "affected": "<6.2.1",
+      "severity": "medium",
+      "summary": "Directory traversal in the core translation file loader."
+    }
+  ],
+  "drupal": [
+    {
+      "id": "CVE-2022-25277",
+      "affected": "<9.4.0",
+      "severity": "high",
+      "summary": "Uploaded file names may be executed in some configurations."
+    }
+  ],
+  "joomla": [
+    {
+      "id": "CVE-2023-23752",
+      "affected": "<4.2.8",
+      "severity": "high",
+      "summary": "Improper access control on the webservice API exposes configuration."
+    }
+  ],
+  "express": [
+    {
+      "id": "CVE-2024-29041",
+      "affected": "<4.19.2",
+      "severity": "medium",
+      "summary": "Open redirect through malformed URL handling in res.location."
+    }
+  ],
+  "tomcat": [
+    {
+      "id": "CVE-2020-1938",
+      "affected": "<9.0.31",
+      "severity": "critical",
+      "summary": "Ghostcat AJP file read and possible code execution."
+    }
+  ],
+  "jenkins": [
+    {
+      "id": "CVE-2024-23897",
+      "affected": "<2.442",
+      "severity": "critical",
+      "summary": "Arbitrary file read through the CLI command parser."
+    }
+  ],
+  "gitlab": [
+    {
+      "id": "CVE-2023-7028",
+      "affected": "<16.7.2",
+      "severity": "critical",
+      "summary": "Account takeover via password reset to an unverified address."
+    }
+  ],
+  "grafana": [
+    {
+      "id": "CVE-2021-43798",
+      "affected": "<8.3.1",
+      "severity": "high",
+      "summary": "Path traversal in the plugin endpoint allows arbitrary file read."
+    }
+  ],
+  "kibana": [
+    {
+      "id": "CVE-2019-7609",
+      "affected": "<6.6.1",
+      "severity": "critical",
+      "summary": "Prototype pollution leading to remote code execution."
+    }
+  ],
+  "elasticsearch": [
+    {
+      "id": "CVE-2015-1427",
+      "affected": "<1.4.3",
+      "severity": "critical",
+      "summary": "Groovy sandbox bypass enabling remote code execution."
+    }
+  ],
+  "vue.js": [
+    {
+      "id": "CVE-2024-6783",
+      "affected": "<2.7.16",
+      "severity": "medium",
+      "summary": "Prototype pollution in the template compiler."
+    }
+  ],
+  "laravel": [
+    {
+      "id": "CVE-2021-3129",
+      "affected": "<8.4.3",
+      "severity": "critical",
+      "summary": "Ignition debug mode allows unauthenticated remote code execution."
+    }
+  ],
+  "spring boot": [
+    {
+      "id": "CVE-2022-22965",
+      "affected": "<2.6.6",
+      "severity": "critical",
+      "summary": "Spring4Shell data binding remote code execution."
+    }
+  ]
+}

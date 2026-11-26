@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>webscout_engine report - {{ report.target }}</title>
+<style>
+  :root {
+    --purple: #ff2d55;
+    --cyan: #ff6b81;
+    --ink: #0d0b1a;
+    --panel: #151228;
+    --panel-2: #1d1935;
+    --line: #2c2750;
+    --text: #e8e6f5;
+    --muted: #9a95b8;
+    --critical: {{ colors['critical'] }};
+    --high: {{ colors['high'] }};
+    --medium: {{ colors['medium'] }};
+    --low: {{ colors['low'] }};
+    --info: {{ colors['info'] }};
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: radial-gradient(1200px 600px at 10% -10%, #241a4d 0%, var(--ink) 55%);
+    color: var(--text); font-family: "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    font-size: 15px; line-height: 1.55;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 80px; }
+  header.hero {
+    border: 1px solid var(--line); border-radius: 18px; padding: 26px 28px;
+    background: linear-gradient(135deg, rgba(123,47,247,.22), rgba(0,212,255,.10) 70%);
+    margin-bottom: 26px;
+  }
+  .brand { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .brand h1 {
+    margin: 0; font-size: 30px; letter-spacing: .5px;
+    background: linear-gradient(90deg, var(--purple), var(--cyan));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .brand span { color: var(--muted); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+  .target { font-size: 19px; margin: 14px 0 6px; word-break: break-all; }
+  .meta { color: var(--muted); font-size: 13px; display: flex; gap: 22px; flex-wrap: wrap; }
+  .meta b { color: var(--text); font-weight: 600; }
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px;
+    letter-spacing: 1px; text-transform: uppercase; border: 1px solid var(--line);
+  }
+  .badge.ok { color: #4ade80; border-color: #245c3c; background: rgba(74,222,128,.08); }
+  .badge.warn { color: #f5a524; border-color: #6b4a10; background: rgba(245,165,36,.08); }
+  section { margin: 34px 0; }
+  h2 { font-size: 18px; letter-spacing: .4px; margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
+  h2::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--cyan)); }
+  .grid { display: grid; gap: 18px; }
+  .grid.two { grid-template-columns: 1.1fr .9fr; }
+  .grid.cards { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  .stat { font-size: 26px; font-weight: 700; }
+  .stat-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .8px; }
+  .sev { font-weight: 700; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+  .sev.critical { color: var(--critical); } .sev.high { color: var(--high); }
+  .sev.medium { color: var(--medium); } .sev.low { color: var(--low); } .sev.info { color: var(--info); }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+  input[type=search] {
+    flex: 1 1 260px; min-width: 200px; padding: 10px 14px; border-radius: 10px;
+    border: 1px solid var(--line); background: var(--panel); color: var(--text); font-size: 14px;
+  }
+  input[type=search]:focus { outline: 1px solid var(--cyan); }
+  .chip {
+    cursor: pointer; user-select: none; padding: 7px 13px; border-radius: 999px; font-size: 12px;
+    border: 1px solid var(--line); color: var(--muted); background: var(--panel); letter-spacing: .6px;
+  }
+  .chip.on { color: var(--ink); background: linear-gradient(135deg, var(--purple), var(--cyan)); border-color: transparent; font-weight: 700; }
+  .finding { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; }
+  .finding[data-severity=critical] { border-left-color: var(--critical); }
+  .finding[data-severity=high] { border-left-color: var(--high); }
+  .finding[data-severity=medium] { border-left-color: var(--medium); }
+  .finding[data-severity=low] { border-left-color: var(--low); }
+  .finding[data-severity=info] { border-left-color: var(--info); }
+  .finding h3 { margin: 0 0 6px; font-size: 15.5px; font-weight: 600; }
+  .finding .row { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); font-size: 12.5px; margin-bottom: 10px; }
+  .finding dl { margin: 0; display: grid; grid-template-columns: 110px 1fr; gap: 4px 14px; font-size: 13px; }
+  .finding dt { color: var(--muted); }
+  .finding dd { margin: 0; word-break: break-word; }
+  code, .mono { font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace; font-size: 12.5px; }
+  .evidence { background: #0b0918; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; color: #c9c4e6; word-break: break-word; }
+  .muted { color: var(--muted); }
+  .empty { color: var(--muted); font-style: italic; padding: 10px 0; }
+  footer { margin-top: 50px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 18px; }
+  .arch { width: 100%; height: auto; }
+  @media (max-width: 860px) { .grid.two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand">
+      <h1>webscout_engine</h1>
+      <span>Security Assessment Report</span>
+      {% if report.completed %}<span class="badge ok">completed</span>{% else %}<span class="badge warn">{{ 'interrupted' if report.interrupted else 'partial' }}</span>{% endif %}
+      {% if report.lab_mode %}<span class="badge">lab mode</span>{% endif %}
+    </div>
+    <div class="target mono">{{ report.target }}</div>
+    <div class="meta">
+      <span>Scan ID <b>{{ report.scan_id }}</b></span>
+      <span>Started <b>{{ report.started_at.strftime('%Y-%m-%d %H:%M:%S') }} UTC</b></span>
+      <span>Duration <b>{{ duration }}</b></span>
+      <span>Requests <b>{{ report.stats.requests }}</b></span>
+      <span>Findings <b>{{ report.findings|length }}</b></span>
+      <span>Generated <b>{{ generated_at }}</b></span>
+    </div>
+  </header>
+
+  <section>
+    <div class="grid two">
+      <div class="card">
+        <h2 style="margin-top:0">Severity distribution</h2>
+        <div style="display:flex; gap:26px; align-items:center; flex-wrap:wrap">
+          <svg width="170" height="170" viewBox="0 0 170 170" role="img" aria-label="Severity distribution">
+            <circle cx="85" cy="85" r="{{ 68 }}" fill="none" stroke="#241f45" stroke-width="18"/>
+            {% for seg in donut %}
+            <circle cx="85" cy="85" r="68" fill="none" stroke="{{ seg.color }}" stroke-width="18"
+                    stroke-dasharray="{{ seg.dash }}" stroke-dashoffset="{{ seg.offset }}"
+                    transform="rotate(-90 85 85)" stroke-linecap="butt"/>
+            {% endfor %}
+            <text x="85" y="80" text-anchor="middle" fill="#e8e6f5" font-size="26" font-weight="700">{{ report.findings|length }}</text>
+            <text x="85" y="102" text-anchor="middle" fill="#9a95b8" font-size="11" letter-spacing="1">FINDINGS</text>
+          </svg>
+          <table style="max-width:280px">
+            <tbody>
+            {% for name, count in severity_order %}
+              <tr><td class="sev {{ name }}">{{ name }}</td><td style="text-align:right">{{ count }}</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="grid cards">
+        <div class="card"><div class="stat">{{ report.stats.requests }}</div><div class="stat-label">Requests</div></div>
+        <div class="card"><div class="stat">{{ report.observations|length }}</div><div class="stat-label">Observations</div></div>
+        <div class="card"><div class="stat">{{ report.stats.errors }}</div><div class="stat-label">Errors</div></div>
+        <div class="card"><div class="stat">{{ report.stats.timeouts }}</div><div class="stat-label">Timeouts</div></div>
+        <div class="card"><div class="stat">{{ report.stats.retries }}</div><div class="stat-label">Retries</div></div>
+        <div class="card"><div class="stat">{{ report.stats.rate_limited }}</div><div class="stat-label">Rate limited</div></div>
+        <div class="card"><div class="stat">{{ executed|length }}</div><div class="stat-label">Modules run</div></div>
+        <div class="card"><div class="stat">{{ skipped|length }}</div><div class="stat-label">Modules skipped</div></div>
+        <div class="card"><div class="stat">{{ cwe_count }}</div><div class="stat-label">CWE classes</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Architecture</h2>
+    <div class="card">
+      <svg class="arch" viewBox="0 0 960 300" role="img" aria-label="webscout_engine architecture">
+        <defs>
+          <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7b2ff7"/><stop offset="100%" stop-color="#00d4ff"/>
+          </linearGradient>
+        </defs>
+        <g font-family="Segoe UI, sans-serif" font-size="12" fill="#e8e6f5">
+          <rect x="10" y="120" width="130" height="56" rx="10" fill="#1d1935" stroke="#2c2750"/>
+          <text x="75" y="145" text-anchor="middle">Target</text>
+          <text x="75" y="162" text-anchor="middle" fill="#9a95b8" font-size="10">scope checked</text>
+
+          <rect x="170" y="120" width="140" height="56" rx="10" fill="#1d1935" stroke="url(#accent)"/>
+          <text x="240" y="145" text-anchor="middle">Engine + HTTP</text>
+          <text x="240" y="162" text-anchor="middle" fill="#9a95b8" font-size="10">rate limit / retries</text>
+
+          {% for module in modules %}
+          <rect x="345" y="{{ 26 + loop.index0 * 62 }}" width="180" height="46" rx="9" fill="#1d1935" stroke="#2c2750"/>
+          <text x="435" y="{{ 46 + loop.index0 * 62 }}" text-anchor="middle">{{ module.title or module.module }}</text>
+          <text x="435" y="{{ 61 + loop.index0 * 62 }}" text-anchor="middle" fill="#9a95b8" font-size="10">{{ module.status.value }} &middot; {{ module.findings|length }} findings</text>
+          <line x1="310" y1="148" x2="345" y2="{{ 49 + loop.index0 * 62 }}" stroke="#4b3f86" stroke-width="1.5"/>
+          {% endfor %}
+
+          <rect x="560" y="120" width="150" height="56" rx="10" fill="#1d1935" stroke="#2c2750"/>
+          <text x="635" y="145" text-anchor="middle">Checks ({{ checks|length }})</text>
+          <text x="635" y="162" text-anchor="middle" fill="#9a95b8" font-size="10">plugin registry</text>
+
+          <rect x="745" y="120" width="200" height="56" rx="10" fill="#1d1935" stroke="url(#accent)"/>
+          <text x="845" y="145" text-anchor="middle">Reports</text>
+          <text x="845" y="162" text-anchor="middle" fill="#9a95b8" font-size="10">JSON &middot; HTML &middot; CSV &middot; SARIF</text>
+
+          <line x1="140" y1="148" x2="170" y2="148" stroke="#4b3f86" stroke-width="1.5"/>
+          <line x1="525" y1="148" x2="560" y2="148" stroke="#4b3f86" stroke-width="1.5"/>
+          <line x1="710" y1="148" x2="745" y2="148" stroke="#4b3f86" stroke-width="1.5"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  {% if coverage %}
+  <section>
+    <h2>Module coverage</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>Module</th><th>ID</th><th>Type</th><th>Status</th><th>Findings</th><th>Requests</th><th>Reason</th></tr></thead>
+        <tbody>
+        {% for entry in coverage %}
+          <tr>
+            <td>{{ entry.title or entry.module }}</td>
+            <td class="mono muted">{{ entry.module_id }}</td>
+            <td class="muted">{{ entry.scan_type }}</td>
+            <td class="sev {{ 'low' if entry.status.value == 'completed' else 'medium' }}">{{ entry.status.value }}</td>
+            <td>{{ entry.findings }}</td>
+            <td>{{ entry.requests }}</td>
+            <td class="muted">{{ entry.reason }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <p class="muted" style="margin-top:10px">
+        A module listed as skipped did not run, and its reason is shown. This scan is not
+        complete coverage of every category unless every module reports completed.
+      </p>
+    </div>
+  </section>
+  {% endif %}
+
+  <section>
+    <h2>Findings</h2>
+    <div class="controls">
+      <input type="search" id="search" placeholder="Search findings, endpoints, checks...">
+      {% for name, count in severity_order %}
+      <span class="chip on" data-sev="{{ name }}">{{ name }} {{ count }}</span>
+      {% endfor %}
+      <span class="chip" id="toggle-all">expand all</span>
+    </div>
+    <div id="finding-list">
+    {% for finding in report.findings %}
+      <article class="finding" data-severity="{{ finding.severity.value }}"
+               data-text="{{ (finding.title ~ ' ' ~ finding.endpoint ~ ' ' ~ finding.check ~ ' ' ~ finding.parameter ~ ' ' ~ finding.evidence)|lower }}">
+        <h3>{{ finding.title }}</h3>
+        <div class="row">
+          <span class="sev {{ finding.severity.value }}">{{ finding.severity.value }}</span>
+          <span>confidence: {{ finding.confidence.value }}</span>
+          <span>verification: {{ finding.verification.value }}</span>
+          <span>check: {{ finding.check }}</span>
+          {% if finding.cwe %}<span class="mono">{{ finding.cwe }}</span>{% endif %}
+          {% if finding.cvss is not none %}<span>CVSS {{ '%.1f'|format(finding.cvss) }}</span>{% endif %}
+          <span>module: {{ finding.module }}</span>
+          {% if finding.status_code %}<span>status: {{ finding.status_code }}</span>{% endif %}
+          <span class="mono">{{ finding.method }} {{ finding.endpoint }}</span>
+        </div>
+        <details>
+          <summary class="muted" style="cursor:pointer">Evidence, impact and remediation</summary>
+          <dl style="margin-top:10px">
+            {% if finding.parameter %}<dt>Parameter</dt><dd class="mono">{{ finding.parameter }}</dd>{% endif %}
+            <dt>Evidence</dt><dd><span class="evidence mono">{{ finding.evidence or 'n/a' }}</span></dd>
+            <dt>Impact</dt><dd>{{ finding.impact or 'Not recorded.' }}</dd>
+            <dt>Remediation</dt><dd>{{ finding.remediation or 'Not recorded.' }}</dd>
+            <dt>Finding ID</dt><dd class="mono">{{ finding.id }}</dd>
+            <dt>Scan type</dt><dd>{{ finding.scan_type }}</dd>
+            {% if finding.references %}
+            <dt>References</dt>
+            <dd>{% for ref in finding.references %}<a href="{{ ref }}" style="color:#7fd4ff">{{ ref }}</a>{% if not loop.last %}<br>{% endif %}{% endfor %}</dd>
+            {% endif %}
+          </dl>
+        </details>
+      </article>
+    {% else %}
+      <p class="empty">No findings were recorded for this scan.</p>
+    {% endfor %}
+    </div>
+  </section>
+
+  {% if observation_kinds %}
+  <section>
+    <h2>Observations</h2>
+    {% for kind in observation_kinds %}
+    <div class="card" style="margin-bottom:16px">
+      <h3 style="margin:0 0 10px; font-size:14.5px">{{ observation_labels[kind] }} ({{ observations[kind]|length }})</h3>
+      <table>
+        <thead><tr><th>Label</th><th>Status</th><th>Detail</th><th>Severity</th></tr></thead>
+        <tbody>
+        {% for item in observations[kind][:200] %}
+          <tr>
+            <td class="mono">{{ item.label }}</td>
+            <td>{{ item.status }}</td>
+            <td class="muted">{{ item.detail }}</td>
+            <td class="sev {{ item.severity.value }}">{{ item.severity.value }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if report.notes %}
+  <section>
+    <h2>Scan notes</h2>
+    <div class="card">
+      <ul style="margin:0; padding-left:18px">
+      {% for note in report.notes %}<li class="muted">{{ note }}</li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+  {% endif %}
+
+  <footer>
+    <p><strong>webscout_engine {{ report.version }}</strong> &middot; generated {{ generated_at }} &middot; schema {{ report.schema_version }}</p>
+    <p>Developed by <a href="{{ developer_github }}" style="color:#7fd4ff">{{ developer_telegram }}</a>
+       &middot; <a href="{{ developer_github }}" style="color:#7fd4ff">{{ developer_github }}</a></p>
+    <p>This report documents observations made during an authorised assessment. Findings marked with low confidence
+       require manual verification before they are treated as confirmed vulnerabilities. Secret values are redacted
+       automatically; no file contents or credentials are reproduced here.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var search = document.getElementById('search');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip[data-sev]'));
+  var findings = Array.prototype.slice.call(document.querySelectorAll('.finding'));
+  var toggle = document.getElementById('toggle-all');
+  var expanded = false;
+
+  function active() {
+    var set = new Set();
+    chips.forEach(function (c) { if (c.classList.contains('on')) set.add(c.dataset.sev); });
+    return set;
+  }
+
+  function apply() {
+    var q = (search.value || '').toLowerCase().trim();
+    var sev = active();
+    findings.forEach(function (el) {
+      var okSev = sev.size === 0 || sev.has(el.dataset.severity);
+      var okText = !q || (el.dataset.text || '').indexOf(q) !== -1;
+      el.style.display = (okSev && okText) ? '' : 'none';
+    });
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      chip.classList.toggle('on');
+      apply();
+    });
+  });
+  search.addEventListener('input', apply);
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      expanded = !expanded;
+      document.querySelectorAll('.finding details').forEach(function (d) { d.open = expanded; });
+      toggle.textContent = expanded ? 'collapse all' : 'expand all';
+      toggle.classList.toggle('on', expanded);
+    });
+  }
+})();
+</script>
+</body>
+</html>
